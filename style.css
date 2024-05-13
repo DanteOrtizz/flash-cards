@@ -1,17 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
 :root {
     --card: #f7f7f7;
-    --pallete3: #e1e1e1;
-    --pallete4: #b1b1b1;
-    --font-color: #cfcfcf;    
-    --pallete5: #9e9e9e;
-    --pallete6: #7e7e7e;
-    --pallete7: #626262;
-    --pallete8: #515151;
-    --pallete9: #3b3b3b;
-    --background: #222222;
+    --background: #e1e1e1;
+    --font: #222222;
+    --btn: #cfcfcf;    
+    --btn-border: #b1b1b1;
+    --nav-back: #EBEBEB;
+    --box-shadow: #7e7e7e;
+    --text-area-border: #b1b1b1;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
   background: var(--background);
-  color: var(--font-color);
+  color: var(--font);
+  font-family: "Lato", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin:  0;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+    position: relative;
+}
+
+.h1-btn {
+    position: absolute;
+    right: 0;
+    transform: translate(120%, -50%);
+    z-index: 2;
+    cursor: pointer;
+    background-color: var(--btn);
+    border: 1px solid var(--btn-border);
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 20px;
+    padding: 3px 8px;
+}
+
+.h1-btn:active {
+    border: solid 4px green;
+}
+
+.btn {
+    cursor: pointer;
+    background-color: var(--btn);
+    border: 1px solid var(--btn-border);
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 20px;
+    padding: 3px 8px;
+    transition: transform ease 0.2s;
+}
+
+.btn:hover, .h1-btn:hover {
+    background-color: var(--font);
+    color: var(--btn);
+}
+
+.btn:active {
+    transform: scale(0.5);
+}
+
+.btn-small {
+    font-size: 12px;
+    padding: 5px 10px;
+}
+
+.btn-ghost {
+    border: none;
+    background-color: transparent;
+}
+
+.clear {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+}
+
+.clear:active {
+    border: solid 3px red;
+}
+
+.cards {
+    perspective: 1000px;
+    position: relative;
+    height: 300px;
+    width: 500px;
+    max-width: 100%;
+}
+
+.card {
+    position: absolute;
+    opacity: 0;
+    font-size: 1.5em;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform: translateX(50%) rotateY(-10deg);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.card.active {
+    cursor: pointer;
+    opacity: 1;
+    z-index: 10;
+    transform: translateX(0) rotateY(0);
+}
+
+.card.left {
+    transform: translateX(-50%) rotateY(10deg);
+}
+
+.card.show-answer .inner-card {
+    transform: rotateX(180deg);
+}
+
+.inner-card {
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease;
+}
+
+.inner-card-front, .inner-card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background: var(--card);
+    backface-visibility: hidden;
+}
+
+.inner-card-front {
+    transform: rotateX(0deg);
+    z-index: 2;
+}
+
+.inner-card-back {
+    transform: rotateX(180deg);
+}
+
+.inner-card-front::after, .inner-card-back::after {
+    content: '\f021  Flip';
+    font-family: 'Font Awesome 5 Free', Lato, sans-serif;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #b1b1b1;
+}
+
+.navigation {
+    display: flex;
+    margin: 20px 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.navigation .nav-button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.navigation .nav-button:active {
+    transform: scale(0.5);
+    transition: transform ease 0.2s;
+}
+
+.navigation p {
+    margin: 0 25px;
+}
+
+.add-container {
+    opacity: 0;
+    z-index: -1;
+    background-color: var(--nav-back);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    transition: 0.3s ease;
+}
+
+.add-container.show {
+    opacity: 1;
+    z-index: 2;
+}
+
+.add-container h3 {
+    margin: 10px 0;
+}
+
+.form-group label {
+    display: block;
+    margin: 20px 0 10px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.form-group textarea {
+    border: 1px solid var(--text-area-border);
+    border-radius: 3px;
+    resize: none;
+    font-size: 16px;
+    padding: 12px;
+    min-width: 500px;
+    max-width: 100%;
+    font-weight: 600;
 }
