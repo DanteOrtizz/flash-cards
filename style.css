@@ -1,0 +1,17 @@
+:root {
+    --card: #f7f7f7;
+    --pallete3: #e1e1e1;
+    --pallete4: #b1b1b1;
+    --font-color: #cfcfcf;    
+    --pallete5: #9e9e9e;
+    --pallete6: #7e7e7e;
+    --pallete7: #626262;
+    --pallete8: #515151;
+    --pallete9: #3b3b3b;
+    --background: #222222;
+}
+
+body {
+  background: var(--background);
+  color: var(--font-color);
+}
